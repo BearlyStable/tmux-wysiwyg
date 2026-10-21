@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tmux wysiwyg</title>
+  <meta name="description" content="Design your tmux status bar, options, key bindings and plugins visually — then download the .tmux.conf.">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="brand-name">tmux<span class="dim">.</span>wysiwyg</span>
+      <span class="tagline">drag, drop, download your <code>.tmux.conf</code></span>
+    </div>
+    <nav class="actions" aria-label="Editor actions">
+      <select id="template-select" aria-label="Start from a template"></select>
+      <select id="theme-select" aria-label="Colour theme"></select>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" id="undo" class="icon-btn" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+      <button type="button" id="redo" class="icon-btn" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" id="import-btn" class="btn small">Import</button>
+      <button type="button" id="share-btn" class="btn small">Share link</button>
+      <button type="button" id="reset-btn" class="btn small">Reset</button>
+      <button type="button" id="toggle-output" class="btn small" aria-pressed="true">Config</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <aside id="sidebar" class="panel sidebar" aria-label="Glossary and widgets"></aside>
+    <section class="workspace" aria-label="Designer">
+      <div id="preview" class="preview"></div>
+      <div id="inspector" class="panel inspector"></div>
+    </section>
+    <aside id="output" class="panel output" aria-label="Generated configuration"></aside>
+  </main>
+
+  <dialog id="import-dialog">
+    <form id="import-form" method="dialog">
+      <h2>Import an existing config</h2>
+      <p class="muted small">Paste your <code>~/.tmux.conf</code>. Options, key bindings, plugins and status formats are imported; anything else is kept verbatim in an "Extra" section. Nothing is uploaded — it all happens in your browser.</p>
+      <textarea id="import-text" rows="14" class="mono" spellcheck="false" placeholder="set -g mouse on&#10;set -g prefix C-a&#10;bind | split-window -h&#10;…"></textarea>
+      <div class="dialog-actions">
+        <label class="btn small file-btn">Choose file… <input type="file" id="import-file" accept=".conf,.tmux,text/plain"></label>
+        <span class="grow"></span>
+        <button type="button" id="import-cancel" class="btn small">Cancel</button>
+        <button type="submit" class="btn small primary">Import</button>
+      </div>
+    </form>
+  </dialog>
+
+  <noscript><p class="noscript">tmux wysiwyg needs JavaScript to run.</p></noscript>
+</body>
+</html>

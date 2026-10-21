@@ -1,0 +1,14 @@
+{
+  "name": "tmux-wysiwyg",
+  "version": "0.1.0",
+  "description": "Visual drag-and-drop editor for tmux configs",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js --dev",
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,11 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# Local-only working notes (roadmap / raw bug notes), not published
+AGENT_NOTES.md
+
+# Editor / local backups
+.vscode/
+*.bkp.tar

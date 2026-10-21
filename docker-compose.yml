@@ -1,0 +1,38 @@
+# Local:   docker compose up -d --build        -> http://localhost:8080
+# Hosted:  DOMAIN=tmux.example.com docker compose --profile hosted up -d --build
+#          (Caddy terminates TLS with automatic Let's Encrypt certificates)
+
+services:
+  app:
+    build: .
+    image: tmux-wysiwyg:latest
+    restart: unless-stopped
+    ports:
+      # Bound to localhost by default; set BIND=0.0.0.0 to expose it directly.
+      - "${BIND:-127.0.0.1}:${PORT:-8080}:8080"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 128m
+    pids_limit: 64
+
+  caddy:
+    image: caddy:2-alpine
+    profiles: ["hosted"]
+    restart: unless-stopped
+    depends_on: [app]
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      # Set DOMAIN in .env or the environment, e.g. DOMAIN=tmux.example.com
+      DOMAIN: ${DOMAIN:-localhost}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
