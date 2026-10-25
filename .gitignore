@@ -5,6 +5,7 @@ node_modules/
 
 # Local-only working notes (roadmap / raw bug notes), not published
 AGENT_NOTES.md
+*.code-workspace
 
 # Editor / local backups
 .vscode/
